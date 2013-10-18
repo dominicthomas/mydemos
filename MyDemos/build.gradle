@@ -16,18 +16,52 @@ android {
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:18.0.0'
+    // Note: these libraries require the "Google Repository" and "Android Repository"
+    // to be installed via the SDK manager.
+    compile 'com.android.support:appcompat-v7:18.0.0'
 	compile 'com.android.support:gridlayout-v7:18.0.0'
 	compile 'com.android.support:support-v4:18.0.0'
     compile 'com.google.android.gms:play-services:3.1.36'
+
+    // third party libraries
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.jakewharton:butterknife:3.0.0' // requires proguard settings
+    compile 'com.squareup.picasso:picasso:2.1.1'
+
+    // local projects to compile
+    compile project(':libraries:volley')
+
+    // compile any jars in libs
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 // reference full package to Wrapper avoid not found issue
 task wrapper(type: org.gradle.api.tasks.wrapper.Wrapper) {
+    // Go to Preferences > Project Settings > Gradle and choose "Use customizable gradle wrapper"
     gradleVersion = '1.8'
 }
 
-// TODO: try out build configs!
+// TODO: try out build configs, flavours, signing, api keys, proguard etc...!
+
+/*
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file("/dir/to/your.keystore")
+            storePassword "xxx"
+            keyAlias "yyy"
+            keyPassword "xxx"
+        }
+    }
+
+    buildTypes {
+        release {
+            runProguard true
+            proguardFile file('../your_proguard_file.txt')
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            signingConfig signingConfigs.releaseConfig
+        }
+    }
+
+ */
